@@ -6,15 +6,37 @@
         xmlns:local="clr-namespace:Silver"
         mc:Ignorable="d"
         Loaded="MainWindow_Loaded" WindowStartupLocation="CenterScreen"
-        Title="Silver" Height="450" Width="800">
-    <Grid>
+        Title="Silver" Height="420" Width="640">
+
+    <Grid Background="{x:Static SystemColors.ControlBrush}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.25*" />
             <ColumnDefinition Width="0.75*" />
         </Grid.ColumnDefinitions>
+
         <ListBox Grid.Column="0" Name="TransactionsList"
-            ItemsSource="{Binding Transactions}" DisplayMemberPath="Comment"
-            SelectedIndex="0" />
-        <Button Grid.Column="1" Name="HelloButton" Content="Hello" Click="HelloClick" />
+            ItemsSource="{Binding Transactions}" DisplayMemberPath="Comment" SelectedIndex="0" />
+
+        <Grid Grid.Column="1" ShowGridLines="True" DataContext="{Binding ElementName=TransactionsList, Path=SelectedItem}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.35*" />
+                <ColumnDefinition Width="0.65*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Label Grid.Column="0" Grid.Row="0" Content="Amount" />
+            <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Path=Amount}" />
+
+            <Label Grid.Column="0" Grid.Row="1" Content="Comment" />
+            <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Path=Comment}" />
+
+            <!-- <Button Grid.Column="0" Grid.Row="2" Name="HelloButton" HorizontalAlignment="Left"
+                Content="Hello" Click="HelloClick" /> -->
+        </Grid>
+
     </Grid>
 </Window>
