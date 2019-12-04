@@ -5,8 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Silver"
         mc:Ignorable="d"
+        Loaded="MainWindow_Loaded" WindowStartupLocation="CenterScreen"
         Title="Silver" Height="450" Width="800">
     <Grid>
-        <Button Content="Hello" Click="HelloClick" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.25*" />
+            <ColumnDefinition Width="0.75*" />
+        </Grid.ColumnDefinitions>
+        <ListBox Grid.Column="0" Name="TransactionsList"
+            ItemsSource="{Binding Transactions}" DisplayMemberPath="Comment"
+            SelectedIndex="0" />
+        <Button Grid.Column="1" Name="HelloButton" Content="Hello" Click="HelloClick" />
     </Grid>
 </Window>

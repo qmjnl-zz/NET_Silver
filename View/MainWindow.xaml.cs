@@ -1,8 +1,11 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Controls;
 using System.Collections.Generic;
 using System.Collections;
+using System.Windows.Input;
 using LiteDB;
 
 namespace Silver
@@ -23,9 +26,17 @@ namespace Silver
     /// </summary>
     public partial class MainWindow : Window
     {
+        protected MainWindowViewModel viewModel = new MainWindowViewModel();
+
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = viewModel;
+        }
+
+        public void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
         }
 
         private void HelloClick(object sender, RoutedEventArgs e)
