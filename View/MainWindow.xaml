@@ -26,6 +26,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <Label Grid.Column="0" Grid.Row="0" Content="Amount" />
@@ -33,6 +34,15 @@
 
             <Label Grid.Column="0" Grid.Row="1" Content="Comment" />
             <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Path=Comment}" />
+
+            <CheckBox Grid.Column="0" Grid.Row="2" IsEnabled="False" IsChecked="{Binding Path=IsChanged}"
+                Content="Is Changed" Margin="5,5,5,5" />
+
+            <Button Grid.Column="0" Grid.Row="3" Content="Add Transaction" HorizontalAlignment="Right"
+                Click="AddTransactionClick" />
+
+            <Button Grid.Column="1" Grid.Row="3" Content="Change Comment" HorizontalAlignment="Right"
+                Click="ChangeCommentClick" />
 
             <!-- <Button Grid.Column="0" Grid.Row="2" Name="HelloButton" HorizontalAlignment="Left"
                 Content="Hello" Click="HelloClick" /> -->

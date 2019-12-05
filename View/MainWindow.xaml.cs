@@ -1,9 +1,7 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Reflection;
 using System.Windows;
-using System.Windows.Controls;
-using System.Collections.Generic;
+using System.Linq;
 using System.Collections;
 using System.Windows.Input;
 using LiteDB;
@@ -37,6 +35,17 @@ namespace Silver
         public void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+        }
+
+        private void AddTransactionClick(object sender, RoutedEventArgs e)
+        {
+            int maxId = viewModel.Transactions?.Max(x => x.Id) ?? 0;
+            viewModel.Transactions?.Add(new Transaction { Id = ++maxId, Amount = 150.00M, Comment = "Картофель", IsChanged = false });
+        }
+
+        private void ChangeCommentClick(object sender, RoutedEventArgs e)
+        {
+            viewModel.Transactions.First(x => x.Id == ((Transaction)TransactionsList.SelectedItem)?.Id).Comment = "Овощи и мясо";
         }
 
         private void HelloClick(object sender, RoutedEventArgs e)
