@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace Silver
 {
     public partial class Transaction : Entity
@@ -5,6 +7,7 @@ namespace Silver
         private decimal amount;
         private string comment;
 
+        [Required]
         public decimal Amount
         {
             get => amount;

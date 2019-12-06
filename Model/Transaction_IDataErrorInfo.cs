@@ -24,6 +24,7 @@ namespace Silver
                         {
                             ClearErrors(nameof(Amount));
                         }
+                        AddErrors(nameof(Amount), GetErrorsFromAnnotations(nameof(Amount), Amount));
                         break;
                     default:
                         break;
