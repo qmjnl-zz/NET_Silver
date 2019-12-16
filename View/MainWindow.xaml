@@ -72,7 +72,9 @@
                 Click="AddTransactionClick" />
 
             <Button Grid.Column="1" Grid.Row="3" Content="Change Comment" HorizontalAlignment="Right"
-                Click="ChangeCommentClick" />
+                Command="{Binding Path=ChangeCommentCmd,
+                    RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+                CommandParameter="{Binding ElementName=TransactionsList, Path=SelectedItem}" />
 
             <ListBox Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Height="100"
                 ItemsSource="{Binding ElementName=TransactionGrid, Path=(Validation.Errors)}">

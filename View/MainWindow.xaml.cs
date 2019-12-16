@@ -26,6 +26,9 @@ namespace Silver
     {
         protected MainWindowViewModel viewModel = new MainWindowViewModel();
 
+        private ICommand changeCommentCmd = null;
+        public ICommand ChangeCommentCmd => changeCommentCmd ?? (changeCommentCmd = new ChangeCommentCommand());
+
         public MainWindow()
         {
             InitializeComponent();
@@ -41,11 +44,6 @@ namespace Silver
         {
             int maxId = viewModel.Transactions?.Max(x => x.Id) ?? 0;
             viewModel.Transactions?.Add(new Transaction { Id = ++maxId, Amount = 150.00M, Comment = "Картофель", IsChanged = false });
-        }
-
-        private void ChangeCommentClick(object sender, RoutedEventArgs e)
-        {
-            viewModel.Transactions.First(x => x.Id == ((Transaction)TransactionsList.SelectedItem)?.Id).Comment = "Овощи и мясо";
         }
 
         private void HelloClick(object sender, RoutedEventArgs e)
