@@ -29,6 +29,9 @@ namespace Silver
         private ICommand changeCommentCmd = null;
         public ICommand ChangeCommentCmd => changeCommentCmd ?? (changeCommentCmd = new ChangeCommentCommand());
 
+        private ICommand addTransactionCmd = null;
+        public ICommand AddTransactionCmd => addTransactionCmd ?? (addTransactionCmd = new AddTransactionCommand());
+
         public MainWindow()
         {
             InitializeComponent();
@@ -38,12 +41,6 @@ namespace Silver
         public void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
-        }
-
-        private void AddTransactionClick(object sender, RoutedEventArgs e)
-        {
-            int maxId = viewModel.Transactions?.Max(x => x.Id) ?? 0;
-            viewModel.Transactions?.Add(new Transaction { Id = ++maxId, Amount = 150.00M, Comment = "Картофель", IsChanged = false });
         }
 
         private void HelloClick(object sender, RoutedEventArgs e)

@@ -3,20 +3,14 @@ using System.Windows.Input;
 
 namespace Silver
 {
-    public class ChangeCommentCommand : ICommand
+    public class ChangeCommentCommand : CommandBase
     {
-        public event EventHandler CanExecuteChanged
-        {
-            add => CommandManager.RequerySuggested += value;
-            remove => CommandManager.RequerySuggested -= value;
-        }
-
-        public bool CanExecute(object parameter)
+        public override bool CanExecute(object parameter)
         {
             return (parameter as Transaction) != null;
         }
 
-        public void Execute(object parameter)
+        public override void Execute(object parameter)
         {
             ((Transaction)parameter).Comment = "New Commentary";
         }
