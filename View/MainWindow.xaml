@@ -9,6 +9,8 @@
         Title="Silver" Height="420" Width="640">
 
     <Window.Resources>
+        <local:MultiValueConverter x:Key="MultiValueConverter" />
+
         <Style TargetType="{x:Type TextBox}">
             <Style.Triggers>
                 <Trigger Property="Validation.HasError" Value="true">
@@ -57,6 +59,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <Label Grid.Column="0" Grid.Row="0" Content="Amount" />
@@ -78,7 +81,18 @@
                     RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
                 CommandParameter="{Binding ElementName=TransactionsList, Path=SelectedItem}" />
 
-            <ListBox Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Height="100"
+            <Button Grid.Column="0" Grid.Row="4" Content="Remove Transaction" HorizontalAlignment="Right"
+                Command="{Binding Path=RemoveTransactionCmd,
+                    RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">
+                <Button.CommandParameter>
+                    <MultiBinding Converter="{StaticResource MultiValueConverter}">
+                        <Binding ElementName="TransactionsList" Path="ItemsSource" />
+                        <Binding ElementName="TransactionsList" Path="SelectedItem" />
+                    </MultiBinding>
+                </Button.CommandParameter>
+            </Button>
+
+            <ListBox Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Height="100"
                 ItemsSource="{Binding ElementName=TransactionGrid, Path=(Validation.Errors)}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>

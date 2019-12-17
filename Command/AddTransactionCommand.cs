@@ -14,8 +14,8 @@ namespace Silver
         {
             if (parameter is ObservableCollection<Transaction> transactions)
             {
-                int maxId = transactions?.Max(x => x.Id) ?? 0;
-                transactions?.Add(new Transaction { Id = ++maxId, Amount = 150.00M, Comment = "Картофель", IsChanged = false });
+                int maxId = transactions.Count > 0 ? transactions.Max(x => x.Id) : 0;
+                transactions.Add(new Transaction { Id = ++maxId, Amount = 150.00M, Comment = "Картофель", IsChanged = false });
             }
         }
     }

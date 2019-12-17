@@ -32,6 +32,9 @@ namespace Silver
         private ICommand addTransactionCmd = null;
         public ICommand AddTransactionCmd => addTransactionCmd ?? (addTransactionCmd = new AddTransactionCommand());
 
+        private ICommand removeTransactionCmd = null;
+        public ICommand RemoveTransactionCmd => removeTransactionCmd ?? (removeTransactionCmd = new RemoveTransactionCommand());
+
         public MainWindow()
         {
             InitializeComponent();
