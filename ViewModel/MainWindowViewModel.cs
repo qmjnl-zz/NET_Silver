@@ -1,17 +1,40 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 
 namespace Silver
 {
     public class MainWindowViewModel
     {
-        public IList<Transaction> Transactions { get; } = new ObservableCollection<Transaction>();
+        private Repository repository = new Repository();
+        public ObservableCollection<Transaction> Transactions { get; }
 
         public MainWindowViewModel()
         {
-            Transactions.Add(new Transaction { Id = 1, Amount = 120.50M, Comment = "Фрукты", IsChanged = false });
-            Transactions.Add(new Transaction { Id = 2, Amount = 70.45M, Comment = "Кофе", IsChanged = false });
-            Transactions.Add(new Transaction { Id = 3, Amount = 89.90M, Comment = "Печенье", IsChanged = false });
+            Transactions = new ObservableCollection<Transaction>(repository.GetAll<Transaction>());
+            Transactions.CollectionChanged += TransactionsCollectionChanged;
+        }
+
+        private void TransactionsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            List<Transaction> newItems = new List<Transaction>();
+            if (e.NewItems != null)
+            {
+                foreach (Transaction newItem in e.NewItems)
+                {
+                    newItems.Add(newItem);
+                }
+            }
+
+            if (e.OldItems != null)
+            {
+                List<Transaction> oldItems = new List<Transaction>();
+                foreach (Transaction oldItem in e.OldItems)
+                {
+                    oldItems.Add(oldItem);
+                }
+            }
         }
     }
 }

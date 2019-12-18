@@ -100,9 +100,6 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-
-            <!-- <Button Grid.Column="0" Grid.Row="2" Name="HelloButton" HorizontalAlignment="Left"
-                Content="Hello" Click="HelloClick" /> -->
         </Grid>
 
     </Grid>
