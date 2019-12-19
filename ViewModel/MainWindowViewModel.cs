@@ -20,20 +20,20 @@ namespace Silver
         {
             if (e.NewItems != null)
             {
-                List<Transaction> newItems = new List<Transaction>();
+                // List<Transaction> newItems = new List<Transaction>();
                 foreach (Transaction newItem in e.NewItems)
                 {
-                    newItems.Add(newItem);
+                    // newItems.Add(newItem);
                     repository.Add(newItem);
                 }
             }
 
             if (e.OldItems != null)
             {
-                List<Transaction> oldItems = new List<Transaction>();
+                // List<Transaction> oldItems = new List<Transaction>();
                 foreach (Transaction oldItem in e.OldItems)
                 {
-                    oldItems.Add(oldItem);
+                    // oldItems.Add(oldItem);
                 }
             }
         }
