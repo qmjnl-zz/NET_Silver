@@ -18,12 +18,13 @@ namespace Silver
 
         private void TransactionsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            List<Transaction> newItems = new List<Transaction>();
             if (e.NewItems != null)
             {
+                List<Transaction> newItems = new List<Transaction>();
                 foreach (Transaction newItem in e.NewItems)
                 {
                     newItems.Add(newItem);
+                    repository.Add(newItem);
                 }
             }
 

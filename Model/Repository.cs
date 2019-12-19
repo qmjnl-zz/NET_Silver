@@ -28,9 +28,9 @@ namespace Silver
 
                 // Insert new customer document (Id will be auto-incremented)
                 col.Delete(x => true);
-                col.Insert(new Transaction { Amount = 120.50M, Comment = "Фрукты", IsChanged = false });
-                col.Insert(new Transaction { Amount = 70.45M, Comment = "Кофе", IsChanged = false });
-                col.Insert(new Transaction { Amount = 89.90M, Comment = "Печенье", IsChanged = false });
+                col.Insert(new Transaction { Id = 1, Amount = 120.50M, Comment = "Фрукты", IsChanged = false });
+                col.Insert(new Transaction { Id = 2, Amount = 70.45M, Comment = "Кофе", IsChanged = false });
+                col.Insert(new Transaction { Id = 3, Amount = 89.90M, Comment = "Печенье", IsChanged = false });
             }
         }
 
@@ -41,6 +41,16 @@ namespace Silver
                 string EntityType = typeof(T).Name;
                 var col = db.GetCollection<T>();
                 return col.FindAll();
+            }
+        }
+
+        public void Add<T>(T entity)
+        {
+            using (var db = new LiteDatabase(filename))
+            {
+                string EntityType = typeof(T).Name;
+                var col = db.GetCollection<T>();
+                col.Upsert(entity);
             }
         }
     }
