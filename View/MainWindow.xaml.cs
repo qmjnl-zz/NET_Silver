@@ -1,7 +1,9 @@
-﻿using System.Windows;
+﻿using Microsoft.Win32;
+using System;
 using System.Linq;
-using System.Windows.Input;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Silver
 {
@@ -26,7 +28,6 @@ namespace Silver
 
         public void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
         }
 
         public void Amount_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -70,6 +71,24 @@ namespace Silver
             }
 
             textBox.Text += text;
+        }
+
+        private void OpenFileCmd(object sender, ExecutedRoutedEventArgs e)
+        {
+            // OpenFileDialog dialog = new OpenFileDialog();
+            // dialog.Filter ="Databases (.silver)|*.silver";
+
+            // Nullable<bool> result = dialog.ShowDialog();
+            // if (result == true)
+            // {
+            //     viewModel.Open(dialog.FileName);
+            //     TransactionsList.GetBindingExpression(ListBox.ItemsSourceProperty).UpdateTarget();
+            // }
+        }
+
+        private void CanExecuteOpenFileCmd(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
         }
     }
 }

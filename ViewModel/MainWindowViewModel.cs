@@ -6,13 +6,34 @@ namespace Silver
     public class MainWindowViewModel
     {
         private Repository repository = new Repository();
-        public ObservableCollection<Transaction> Transactions { get; }
+        public ObservableCollection<Transaction> Transactions { get; set; }
 
         public MainWindowViewModel()
         {
             Transactions = new ObservableCollection<Transaction>(repository.GetAll<Transaction>());
-            Transactions.CollectionChanged += TransactionsCollectionChanged;
+            if (Transactions != null)
+            {
+                Transactions.CollectionChanged += TransactionsCollectionChanged;
+            }
         }
+
+        // public void Open(string fileName)
+        // {
+        //     if (repository.Open(fileName))
+        //     {
+        //         if (Transactions != null)
+        //         {
+        //             Transactions.CollectionChanged -= TransactionsCollectionChanged;
+        //             Transactions.Clear();
+        //         }
+
+        //         Transactions = new ObservableCollection<Transaction>(repository.GetAll<Transaction>());
+        //         if (Transactions != null)
+        //         {
+        //             Transactions.CollectionChanged += TransactionsCollectionChanged;
+        //         }
+        //     }
+        // }
 
         private void TransactionsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
