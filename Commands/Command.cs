@@ -3,7 +3,7 @@ using System.Windows.Input;
 
 namespace Silver
 {
-    public abstract class CommandBase : ICommand
+    public abstract class Command : ICommand
     {
         public event EventHandler CanExecuteChanged
         {

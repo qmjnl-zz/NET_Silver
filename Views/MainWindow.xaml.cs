@@ -1,4 +1,4 @@
-﻿using Microsoft.Win32;
+using Microsoft.Win32;
 using System;
 using System.Linq;
 using System.Windows;
@@ -10,15 +10,6 @@ namespace Silver
     public partial class MainWindow : Window
     {
         protected MainWindowViewModel viewModel = new MainWindowViewModel();
-
-        private ICommand changeCommentCmd = null;
-        public ICommand ChangeCommentCmd => changeCommentCmd ?? (changeCommentCmd = new ChangeCommentCommand());
-
-        private ICommand addTransactionCmd = null;
-        public ICommand AddTransactionCmd => addTransactionCmd ?? (addTransactionCmd = new AddTransactionCommand());
-
-        private ICommand removeTransactionCmd = null;
-        public ICommand RemoveTransactionCmd => removeTransactionCmd ?? (removeTransactionCmd = new RemoveTransactionCommand());
 
         public MainWindow()
         {

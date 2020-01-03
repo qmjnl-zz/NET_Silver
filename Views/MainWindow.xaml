@@ -1,4 +1,4 @@
-﻿<Window x:Class="Silver.MainWindow"
+<Window x:Class="Silver.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -13,32 +13,7 @@
     </Window.CommandBindings>
 
     <Window.Resources>
-        <local:MultiValueConverter x:Key="MultiValueConverter" />
-
-        <Style TargetType="{x:Type TextBox}">
-            <Style.Triggers>
-                <Trigger Property="Validation.HasError" Value="true">
-                    <Setter Property="Background" Value="Pink" />
-                    <Setter Property="Foreground" Value="Black" />
-                    <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self},
-                        Path=(Validation.Errors)[0].ErrorContent}" />
-                </Trigger>
-            </Style.Triggers>
-            <Setter Property="Validation.ErrorTemplate">
-                <Setter.Value>
-                    <ControlTemplate>
-                        <DockPanel LastChildFill="True">
-                            <TextBlock Foreground="Red" FontSize="20" Text="!"
-                                ToolTip="{Binding ElementName=controlWithError,
-                                Path=AdornedElement.(Validation.Errors)[0].ErrorContent}" />
-                            <Border BorderBrush="Red" BorderThickness="1">
-                                <AdornedElementPlaceholder Name="controlWithError" />
-                            </Border>
-                        </DockPanel>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+        <!-- <local:MultiValueConverter x:Key="MultiValueConverter" /> -->
     </Window.Resources>
 
     <DockPanel>
@@ -85,34 +60,20 @@
                     Content="Is Changed" Margin="5,5,5,5" />
 
                 <Button Grid.Column="0" Grid.Row="3" Content="Add Transaction" HorizontalAlignment="Right"
-                    Command="{Binding Path=AddTransactionCmd,
+                    Command="{Binding Path=DataContext.AddTransactionCommand,
                         RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
                     CommandParameter="{Binding ElementName=TransactionsList, Path=ItemsSource}" />
 
                 <Button Grid.Column="1" Grid.Row="3" Content="Change Comment" HorizontalAlignment="Right"
-                    Command="{Binding Path=ChangeCommentCmd,
+                    Command="{Binding Path=DataContext.ChangeCommentCommand,
                         RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
                     CommandParameter="{Binding ElementName=TransactionsList, Path=SelectedItem}" />
 
                 <Button Grid.Column="0" Grid.Row="4" Content="Remove Transaction" HorizontalAlignment="Right"
-                    Command="{Binding Path=RemoveTransactionCmd,
-                        RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">
-                    <Button.CommandParameter>
-                        <MultiBinding Converter="{StaticResource MultiValueConverter}">
-                            <Binding ElementName="TransactionsList" Path="ItemsSource" />
-                            <Binding ElementName="TransactionsList" Path="SelectedItem" />
-                        </MultiBinding>
-                    </Button.CommandParameter>
-                </Button>
+                    Command="{Binding Path=DataContext.RemoveTransactionCommand,
+                        RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+                    CommandParameter="{Binding ElementName=TransactionsList, Path=SelectedItem}" />
 
-                <ListBox Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Height="100"
-                    ItemsSource="{Binding ElementName=TransactionGrid, Path=(Validation.Errors)}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <ListBox ItemsSource="{Binding Path=ErrorContent}" />
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
             </Grid>
 
         </Grid>

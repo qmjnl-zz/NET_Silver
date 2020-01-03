@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Silver
 {
-    public partial class Transaction : Entity
+    public class Transaction : Entity
     {
         private decimal amount;
         private string comment;

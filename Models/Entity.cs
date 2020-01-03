@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace Silver
 {
-    public partial class Entity : INotifyPropertyChanged
+    public class Entity : INotifyPropertyChanged
     {
         private int id;
         private bool isChanged;
