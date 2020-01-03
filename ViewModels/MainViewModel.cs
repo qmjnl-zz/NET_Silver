@@ -4,12 +4,12 @@ using System.Linq;
 
 namespace Silver
 {
-    public class MainWindowViewModel
+    public class MainViewModel
     {
         private Repository repository = new Repository();
         public ObservableCollection<Transaction> Transactions { get; set; }
 
-        public MainWindowViewModel()
+        public MainViewModel()
         {
             Transactions = new ObservableCollection<Transaction>(repository.GetAll<Transaction>());
             if (Transactions != null)

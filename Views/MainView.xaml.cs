@@ -7,17 +7,17 @@ using System.Windows.Input;
 
 namespace Silver
 {
-    public partial class MainWindow : Window
+    public partial class MainView : Window
     {
-        protected MainWindowViewModel viewModel = new MainWindowViewModel();
+        protected MainViewModel viewModel = new MainViewModel();
 
-        public MainWindow()
+        public MainView()
         {
             InitializeComponent();
             DataContext = viewModel;
         }
 
-        public void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        public void MainView_Loaded(object sender, RoutedEventArgs e)
         {
         }
 
