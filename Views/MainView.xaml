@@ -8,21 +8,7 @@
         Loaded="MainView_Loaded" WindowStartupLocation="CenterScreen"
         Title="Silver" Height="420" Width="640">
 
-    <Window.CommandBindings>
-        <!-- <CommandBinding Command="ApplicationCommands.Open" Executed="OpenFileCmd" CanExecute="CanExecuteOpenFileCmd" /> -->
-    </Window.CommandBindings>
-
-    <Window.Resources>
-        <!-- <local:MultiValueConverter x:Key="MultiValueConverter" /> -->
-    </Window.Resources>
-
     <DockPanel>
-        <Menu DockPanel.Dock="Top">
-            <MenuItem Header="_File">
-                <!-- <MenuItem Header="_Open" Command="ApplicationCommands.Open" /> -->
-            </MenuItem>
-        </Menu>
-
         <Grid Background="{x:Static SystemColors.ControlBrush}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.25*" />

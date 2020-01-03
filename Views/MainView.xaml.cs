@@ -63,23 +63,5 @@ namespace Silver
 
             textBox.Text += text;
         }
-
-        private void OpenFileCmd(object sender, ExecutedRoutedEventArgs e)
-        {
-            // OpenFileDialog dialog = new OpenFileDialog();
-            // dialog.Filter ="Databases (.silver)|*.silver";
-
-            // Nullable<bool> result = dialog.ShowDialog();
-            // if (result == true)
-            // {
-            //     viewModel.Open(dialog.FileName);
-            //     TransactionsList.GetBindingExpression(ListBox.ItemsSourceProperty).UpdateTarget();
-            // }
-        }
-
-        private void CanExecuteOpenFileCmd(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
     }
 }
