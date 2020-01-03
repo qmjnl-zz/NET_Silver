@@ -6,10 +6,25 @@
         xmlns:local="clr-namespace:Silver"
         mc:Ignorable="d"
         Loaded="MainView_Loaded" WindowStartupLocation="CenterScreen"
+        Background="{x:Static SystemColors.ControlBrush}"
         Title="Silver" Height="420" Width="640">
 
     <DockPanel>
-        <Grid Background="{x:Static SystemColors.ControlBrush}">
+        <ToolBar DockPanel.Dock="Top" Background="{x:Static SystemColors.ControlBrush}">
+
+            <Button Content="Add Transaction"
+                Command="{Binding Path=DataContext.AddTransactionCommand,
+                    RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+                CommandParameter="{Binding ElementName=TransactionsList, Path=ItemsSource}" />
+
+            <Button Content="Remove Transaction"
+                Command="{Binding Path=DataContext.RemoveTransactionCommand,
+                    RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+                CommandParameter="{Binding ElementName=TransactionsList, Path=SelectedItem}" />
+
+        </ToolBar>
+
+        <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.25*" />
                 <ColumnDefinition Width="0.75*" />
@@ -18,7 +33,7 @@
             <ListBox Grid.Column="0" Name="TransactionsList"
                 ItemsSource="{Binding Transactions}" DisplayMemberPath="Comment" SelectedIndex="0" />
 
-            <Grid Grid.Column="1" ShowGridLines="True" Margin="5,5,5,5" Name="TransactionGrid"
+            <Grid Grid.Column="1" Margin="5,5,5,5" Name="TransactionGrid"
                 DataContext="{Binding ElementName=TransactionsList, Path=SelectedItem}">
 
                 <Grid.ColumnDefinitions>
@@ -34,31 +49,31 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <Label Grid.Column="0" Grid.Row="0" Content="Amount" />
-                <TextBox Grid.Column="1" Grid.Row="0" IsReadOnly="True" IsReadOnlyCaretVisible="False"
+                <StackPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
+                    Orientation="Horizontal" FlowDirection="RightToLeft">
+
+                    <Button Content="Undo"
+                        Command="{Binding Path=DataContext.UndoCommand,
+                            RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+                        CommandParameter="{Binding ElementName=TransactionsList, Path=SelectedItem}" />
+
+                    <Button Content="Save"
+                        Command="{Binding Path=DataContext.SaveCommand,
+                            RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+                        CommandParameter="{Binding ElementName=TransactionsList, Path=SelectedItem}" />
+
+                </StackPanel>
+
+                <Label Grid.Column="0" Grid.Row="1" Content="Amount" />
+                <TextBox Grid.Column="1" Grid.Row="1" IsReadOnly="True" IsReadOnlyCaretVisible="False"
                     PreviewKeyDown="Amount_PreviewKeyDown" KeyDown="Amount_KeyDown"
                     CaretBrush="Transparent" Text="{Binding Path=Amount, ValidatesOnDataErrors=True}" />
 
-                <Label Grid.Column="0" Grid.Row="1" Content="Comment" />
-                <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Path=Comment}" />
+                <Label Grid.Column="0" Grid.Row="2" Content="Comment" />
+                <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Path=Comment}" />
 
-                <CheckBox Grid.Column="0" Grid.Row="2" IsEnabled="False" IsChecked="{Binding Path=IsChanged}"
+                <CheckBox Grid.Column="0" Grid.Row="3" IsEnabled="False" IsChecked="{Binding Path=IsChanged}"
                     Content="Is Changed" Margin="5,5,5,5" />
-
-                <Button Grid.Column="0" Grid.Row="3" Content="Add Transaction" HorizontalAlignment="Right"
-                    Command="{Binding Path=DataContext.AddTransactionCommand,
-                        RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
-                    CommandParameter="{Binding ElementName=TransactionsList, Path=ItemsSource}" />
-
-                <Button Grid.Column="1" Grid.Row="3" Content="Change Comment" HorizontalAlignment="Right"
-                    Command="{Binding Path=DataContext.ChangeCommentCommand,
-                        RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
-                    CommandParameter="{Binding ElementName=TransactionsList, Path=SelectedItem}" />
-
-                <Button Grid.Column="0" Grid.Row="4" Content="Remove Transaction" HorizontalAlignment="Right"
-                    Command="{Binding Path=DataContext.RemoveTransactionCommand,
-                        RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
-                    CommandParameter="{Binding ElementName=TransactionsList, Path=SelectedItem}" />
 
             </Grid>
 

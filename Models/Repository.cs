@@ -38,15 +38,22 @@ namespace Silver
         //     return true;
         // }
 
-        public IEnumerable<T> GetAll<T>()
+        public IEnumerable<T> GetAll<T>() where T : Entity, new()
         {
             var collection = database.GetCollection<T>();
             return collection.FindAll();
         }
 
-        public void Add<T>(T entity)
+        public T Get<T>(T entity) where T : Entity, new()
         {
             var collection = database.GetCollection<T>();
+            return collection.FindById(entity.Id);
+        }
+
+        public void Upsert<T>(T entity) where T : Entity, new()
+        {
+            var collection = database.GetCollection<T>();
+            entity.IsChanged = false;
             collection.Upsert(entity);
         }
 
