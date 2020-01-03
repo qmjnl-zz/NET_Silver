@@ -52,27 +52,30 @@
                 <StackPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
                     Orientation="Horizontal" FlowDirection="RightToLeft">
 
-                    <Button Content="Undo"
+                    <Button Content="Undo" Margin="5" Padding="5"
                         Command="{Binding Path=DataContext.UndoCommand,
                             RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
                         CommandParameter="{Binding ElementName=TransactionsList, Path=SelectedItem}" />
 
-                    <Button Content="Save"
+                    <Button Content="Save" Margin="5" Padding="5"
                         Command="{Binding Path=DataContext.SaveCommand,
                             RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
                         CommandParameter="{Binding ElementName=TransactionsList, Path=SelectedItem}" />
 
                 </StackPanel>
 
-                <Label Grid.Column="0" Grid.Row="1" Content="Amount" />
-                <TextBox Grid.Column="1" Grid.Row="1" IsReadOnly="True" IsReadOnlyCaretVisible="False"
+                <Label Grid.Column="0" Grid.Row="1" Content="Amount" Margin="5" />
+                <TextBox Grid.Column="1" Grid.Row="1" Margin="5" IsReadOnly="True" IsReadOnlyCaretVisible="False"
                     PreviewKeyDown="Amount_PreviewKeyDown" KeyDown="Amount_KeyDown"
                     CaretBrush="Transparent" Text="{Binding Path=Amount, ValidatesOnDataErrors=True}" />
 
-                <Label Grid.Column="0" Grid.Row="2" Content="Comment" />
-                <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Path=Comment}" />
+                <Label Grid.Column="0" Grid.Row="2" Content="Comment" Margin="5" />
+                <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Path=Comment}" Margin="5" />
 
-                <CheckBox Grid.Column="0" Grid.Row="3" IsEnabled="False" IsChecked="{Binding Path=IsChanged}"
+                <Label Grid.Column="0" Grid.Row="3" Content="Expenditure" Margin="5" />
+                <ComboBox Grid.Column="1" Grid.Row="3" Text="{Binding Path=Expenditure}" Margin="5" />
+
+                <CheckBox Grid.Column="0" Grid.Row="4" IsEnabled="False" IsChecked="{Binding Path=IsChanged}"
                     Content="Is Changed" Margin="5,5,5,5" />
 
             </Grid>

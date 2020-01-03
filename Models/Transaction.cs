@@ -1,3 +1,4 @@
+using LiteDB;
 using System.ComponentModel.DataAnnotations;
 
 namespace Silver
@@ -6,6 +7,7 @@ namespace Silver
     {
         private decimal amount;
         private string comment;
+        private Expenditure expenditure;
 
         [Required]
         public decimal Amount
@@ -18,6 +20,7 @@ namespace Silver
                 OnPropertyChanged();
             }
         }
+
         public string Comment
         {
             get => comment;
@@ -25,6 +28,18 @@ namespace Silver
             {
                 if (value == comment) return;
                 comment = value;
+                OnPropertyChanged();
+            }
+        }
+
+        [BsonRef("Expenditure")]
+        public Expenditure Expenditure
+        {
+            get => expenditure;
+            set
+            {
+                if (value == expenditure) return;
+                expenditure = value;
                 OnPropertyChanged();
             }
         }
