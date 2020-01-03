@@ -47,8 +47,7 @@ namespace Silver
         private void AddTransactionExecute(ObservableCollection<Transaction> transactions)
         {
             int maxId = transactions.Count > 0 ? transactions.Max(x => x.Id) : 0;
-            // transactions.Add(new Transaction { Id = ++maxId, Amount = 140.05M, Comment = "Свекла", IsChanged = false });
-            transactions.Add(new Transaction { Id = ++maxId});
+            transactions.Add(new Transaction { IsChanged = true });
         }
         private bool AddTransactionCanExecute(ObservableCollection<Transaction> transactions)
         {
@@ -110,7 +109,6 @@ namespace Silver
              (saveCommand = new RelayCommand<Transaction>(SaveExecute, SaveCanExecute));
         private void SaveExecute(Transaction transaction)
         {
-            // transaction.IsChanged = false;
             repository.Upsert(transaction);
         }
         private bool SaveCanExecute(Transaction transaction)
