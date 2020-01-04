@@ -10,6 +10,7 @@ namespace Silver
     {
         private Repository repository = new Repository();
         public ObservableCollection<Transaction> Transactions { get; set; }
+        public ObservableCollection<Expenditure> Expenditures { get; set; }
 
         public MainViewModel()
         {
@@ -18,6 +19,8 @@ namespace Silver
             {
                 Transactions.CollectionChanged += TransactionsCollectionChanged;
             }
+
+            Expenditures = new ObservableCollection<Expenditure>(repository.GetAll<Expenditure>());
         }
 
         private void TransactionsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)

@@ -18,6 +18,17 @@ namespace Silver
 
             Directory.CreateDirectory(directory);
             database = new LiteDatabase(fileName);
+
+            Init();
+        }
+
+        private void Init()
+        {
+            var collection = database.GetCollection<Expenditure>();
+            collection.Upsert(new Expenditure { Id = 1, Name = "(Not defined)", IsChanged = false });
+            collection.Upsert(new Expenditure { Id = 2, Name = "Продукты", IsChanged = false });
+            collection.Upsert(new Expenditure { Id = 3, Name = "Проезд", IsChanged = false });
+            collection.Upsert(new Expenditure { Id = 4, Name = "Кварплата", IsChanged = false });
         }
 
         public IEnumerable<T> GetAll<T>() where T : Entity, new()
