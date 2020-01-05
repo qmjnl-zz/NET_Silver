@@ -5,7 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Silver"
         mc:Ignorable="d"
-        Loaded="MainView_Loaded" WindowStartupLocation="CenterScreen"
+        
+        LocationChanged="Window_LocationChanged"
+        SizeChanged="Window_SizeChanged"
+        StateChanged="Window_StateChanged"
+        
         Background="{x:Static SystemColors.ControlBrush}"
         Title="Silver" Height="450" Width="800">
 
