@@ -1,5 +1,3 @@
-using Microsoft.Win32;
-using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -7,21 +5,24 @@ using System.Windows.Input;
 
 namespace Silver
 {
-    public partial class MainView : Window
+    public partial class DecimalBox : UserControl
     {
-        protected MainViewModel viewModel = new MainViewModel();
-
-        public MainView()
+        public DecimalBox()
         {
             InitializeComponent();
-            DataContext = viewModel;
         }
 
-        public void MainView_Loaded(object sender, RoutedEventArgs e)
+        public string Text
         {
+            get { return (string)GetValue(TextProperty); }
+            set { SetValue(TextProperty, value); }
         }
 
-        public void Amount_PreviewKeyDown(object sender, KeyEventArgs e)
+        // Using a DependencyProperty as the backing store for Text.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty TextProperty =
+            DependencyProperty.Register("Text", typeof(string), typeof(DecimalBox));
+
+        private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             const string period = ".";
             TextBox textBox = (TextBox)sender;
@@ -36,7 +37,7 @@ namespace Silver
             }
         }
 
-        public void Amount_KeyDown(object sender, KeyEventArgs e)
+        private void TextBox_KeyDown(object sender, KeyEventArgs e)
         {
             const string period = ".";
             // const string minus = "-";
