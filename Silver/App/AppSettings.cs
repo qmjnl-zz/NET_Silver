@@ -10,5 +10,7 @@ namespace Silver
         public double? WindowHeight { get; set; }
 
         public WindowState WindowState { get; set; } = WindowState.Normal;
+
+        public string Language { get; set; }
     }
 }

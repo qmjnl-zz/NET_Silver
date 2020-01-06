@@ -14,14 +14,18 @@
         Title="Silver" Height="450" Width="800">
 
     <DockPanel>
+        <Menu DockPanel.Dock="Top" Background="{x:Null}">
+            <MenuItem x:Name="menuLanguage" Header="{DynamicResource m_Language}" />
+        </Menu>
+
         <ToolBar DockPanel.Dock="Top" Background="{x:Static SystemColors.ControlBrush}">
 
-            <Button Content="Add Transaction"
+            <Button Content="{DynamicResource m_AddTransaction}"
                 Command="{Binding Path=DataContext.AddTransactionCommand,
                     RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
                 CommandParameter="{Binding ElementName=TransactionsList, Path=ItemsSource}" />
 
-            <Button Content="Remove Transaction"
+            <Button Content="{DynamicResource m_RemoveTransaction}"
                 Command="{Binding Path=DataContext.RemoveTransactionCommand,
                     RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
                 CommandParameter="{Binding ElementName=TransactionsList, Path=SelectedItem}" />
@@ -56,36 +60,33 @@
                 <StackPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
                     Orientation="Horizontal" FlowDirection="RightToLeft">
 
-                    <Button Content="Undo" Margin="5" Padding="5"
+                    <Button Content="{DynamicResource m_UndoTransaction}" Margin="5" Padding="5"
                         Command="{Binding Path=DataContext.UndoCommand,
                             RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
                         CommandParameter="{Binding ElementName=TransactionsList, Path=SelectedItem}" />
 
-                    <Button Content="Save" Margin="5" Padding="5"
+                    <Button Content="{DynamicResource m_SaveTransaction}" Margin="5" Padding="5"
                         Command="{Binding Path=DataContext.SaveCommand,
                             RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
                         CommandParameter="{Binding ElementName=TransactionsList, Path=SelectedItem}" />
 
                 </StackPanel>
 
-                <Label Grid.Column="0" Grid.Row="1" Content="Amount" Margin="5" />
-                <!-- <TextBox Grid.Column="1" Grid.Row="1" Margin="5" IsReadOnly="True" IsReadOnlyCaretVisible="False"
-                    PreviewKeyDown="Amount_PreviewKeyDown" KeyDown="Amount_KeyDown"
-                    CaretBrush="Transparent" Text="{Binding Path=Amount, ValidatesOnDataErrors=True}" /> -->
+                <Label Grid.Column="0" Grid.Row="1" Content="{DynamicResource m_Amount}" Margin="5" />
                 <local:DecimalBox Grid.Column="1" Grid.Row="1" Margin="5"
                     Text="{Binding Path=Amount, Mode=TwoWay, ValidatesOnDataErrors=True}" />
 
-                <Label Grid.Column="0" Grid.Row="2" Content="Comment" Margin="5" />
+                <Label Grid.Column="0" Grid.Row="2" Content="{DynamicResource m_Comment}" Margin="5" />
                 <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Path=Comment}" Margin="5" />
 
-                <Label Grid.Column="0" Grid.Row="3" Content="Expenditure" Margin="5" />
+                <Label Grid.Column="0" Grid.Row="3" Content="{DynamicResource m_Expenditure}" Margin="5" />
                 <ComboBox Grid.Column="1" Grid.Row="3" Margin="5" ItemsSource="{Binding Path=DataContext.Expenditures,
                     RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
                     SelectedValue="{Binding ExpenditureId}" SelectedValuePath="Id"
                     DisplayMemberPath="Name" />
 
                 <CheckBox Grid.Column="0" Grid.Row="4" IsEnabled="False" IsChecked="{Binding Path=IsChanged}"
-                    Content="Is Changed" Margin="5" />
+                    Content="{DynamicResource m_IsChanged}" Margin="5" />
 
             </Grid>
 
