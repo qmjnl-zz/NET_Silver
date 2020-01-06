@@ -64,7 +64,7 @@ namespace Silver
             }
         }
 
-        public AppSettings AppSettings { get; set; } = new AppSettings();
+        public static AppSettings AppSettings { get; set; } = new AppSettings();
 
         public App()
         {
