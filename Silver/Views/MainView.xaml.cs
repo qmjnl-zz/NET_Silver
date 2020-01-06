@@ -14,6 +14,8 @@ namespace Silver
             InitializeComponent();
             DataContext = viewModel;
 
+            //*****
+
             Left = Math.Max(App.AppSettings.WindowLeft ?? 0, 0);
             Top = Math.Max(App.AppSettings.WindowTop ?? 0, 0);
             Width = Math.Max(App.AppSettings.WindowWidth ?? 0, 0);
@@ -28,46 +30,26 @@ namespace Silver
             //*****
 
             App.LanguageChanged += LanguageChanged;
-
-            CultureInfo currLang = App.Language;
-
-            //Заполняем меню смены языка:
-            menuLanguage.Items.Clear();
-            foreach (var lang in App.Languages)
+            languagesMenu.Items.Clear();
+            foreach (var language in App.Languages)
             {
-                MenuItem menuLang = new MenuItem();
-                menuLang.Header = lang.EnglishName;
-                menuLang.Tag = lang;
-                menuLang.IsChecked = lang.Equals(currLang);
-                menuLang.Click += ChangeLanguageClick;
-                menuLanguage.Items.Add(menuLang);
+                MenuItem menuItem = new MenuItem();
+                menuItem.Header = language.EnglishName;
+                menuItem.Tag = language;
+                menuItem.IsChecked = language.Equals(App.Language);
+                menuItem.Click += languagesMenu_Click;
+                languagesMenu.Items.Add(menuItem);
             }
         }
 
         private void LanguageChanged(Object sender, EventArgs e)
         {
-            CultureInfo currLang = App.Language;
-
-            //Отмечаем нужный пункт смены языка как выбранный язык
-            foreach (MenuItem i in menuLanguage.Items)
+            CultureInfo language = App.Language;
+            foreach (MenuItem menuItem in languagesMenu.Items)
             {
-                CultureInfo ci = i.Tag as CultureInfo;
-                i.IsChecked = ci != null && ci.Equals(currLang);
+                CultureInfo cultureInfo = menuItem.Tag as CultureInfo;
+                menuItem.IsChecked = cultureInfo != null && cultureInfo.Equals(language);
             }
-        }
-
-        private void ChangeLanguageClick(Object sender, EventArgs e)
-        {
-            MenuItem mi = sender as MenuItem;
-            if (mi != null)
-            {
-                CultureInfo lang = mi.Tag as CultureInfo;
-                if (lang != null)
-                {
-                    App.Language = lang;
-                }
-            }
-
         }
 
         private void Window_LocationChanged(object sender, System.EventArgs e)
@@ -85,6 +67,19 @@ namespace Silver
         private void Window_StateChanged(object sender, System.EventArgs e)
         {
             App.AppSettings.WindowState = WindowState;
+        }
+
+        private void languagesMenu_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem menuItem = sender as MenuItem;
+            if (menuItem != null)
+            {
+                CultureInfo language = menuItem.Tag as CultureInfo;
+                if (language != null)
+                {
+                    App.Language = language;
+                }
+            }
         }
     }
 }

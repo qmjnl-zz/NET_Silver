@@ -25,41 +25,38 @@ namespace Silver
             }
             set
             {
-                if (value == null) throw new ArgumentNullException("value");
-                if (value == System.Threading.Thread.CurrentThread.CurrentUICulture) return;
+                if (value == null) { throw new ArgumentNullException("value"); }
+                if (value == System.Threading.Thread.CurrentThread.CurrentUICulture) { return; }
 
-                //1. Меняем язык приложения:
-                System.Threading.Thread.CurrentThread.CurrentUICulture = value;
-
-                //2. Создаём ResourceDictionary для новой культуры
-                ResourceDictionary dict = new ResourceDictionary();
+                ResourceDictionary dictionary = new ResourceDictionary();
                 switch (value.Name)
                 {
                     case "ru-RU":
-                        dict.Source = new Uri(String.Format("Resources/lang.{0}.xaml", value.Name), UriKind.Relative);
+                        System.Threading.Thread.CurrentThread.CurrentUICulture = value;
+                        dictionary.Source = new Uri($"Resources/lang.{value.Name}.xaml", UriKind.Relative);
                         break;
                     default:
                         System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
-                        dict.Source = new Uri("Resources/lang.en-US.xaml", UriKind.Relative);
+                        dictionary.Source = new Uri("Resources/lang.en-US.xaml", UriKind.Relative);
                         break;
                 }
 
-                //3. Находим старую ResourceDictionary и удаляем его и добавляем новую ResourceDictionary
-                ResourceDictionary oldDict = (from d in Application.Current.Resources.MergedDictionaries
-                                              where d.Source != null && d.Source.OriginalString.StartsWith("Resources/lang.")
-                                              select d).First();
-                if (oldDict != null)
+                ResourceDictionary prevDictionary = (
+                    from d in Application.Current.Resources.MergedDictionaries
+                    where d.Source != null && d.Source.OriginalString.StartsWith("Resources/lang.")
+                    select d).First();
+
+                if (prevDictionary != null)
                 {
-                    int ind = Application.Current.Resources.MergedDictionaries.IndexOf(oldDict);
-                    Application.Current.Resources.MergedDictionaries.Remove(oldDict);
-                    Application.Current.Resources.MergedDictionaries.Insert(ind, dict);
+                    int index = Application.Current.Resources.MergedDictionaries.IndexOf(prevDictionary);
+                    Application.Current.Resources.MergedDictionaries.Remove(prevDictionary);
+                    Application.Current.Resources.MergedDictionaries.Insert(index, dictionary);
                 }
                 else
                 {
-                    Application.Current.Resources.MergedDictionaries.Add(dict);
+                    Application.Current.Resources.MergedDictionaries.Add(dictionary);
                 }
 
-                //4. Вызываем евент для оповещения всех окон.
                 LanguageChanged(Application.Current, new EventArgs());
             }
         }
@@ -73,8 +70,6 @@ namespace Silver
             Languages.Clear();
             Languages.Add(new CultureInfo("en-US"));
             Languages.Add(new CultureInfo("ru-RU"));
-
-            //Language = Settings.Default.DefaultLanguage;
         }
 
         private void Application_Startup(object sender, StartupEventArgs e)
@@ -121,9 +116,6 @@ namespace Silver
 
         private void App_LanguageChanged(Object sender, EventArgs e)
         {
-            //Settings.Default.DefaultLanguage = Language;
-            //Settings.Default.Save();
-
             AppSettings.Language = Language.Name;
         }
     }

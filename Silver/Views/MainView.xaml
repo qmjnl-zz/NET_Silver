@@ -15,7 +15,7 @@
 
     <DockPanel>
         <Menu DockPanel.Dock="Top" Background="{x:Null}">
-            <MenuItem x:Name="menuLanguage" Header="{DynamicResource m_Language}" />
+            <MenuItem x:Name="languagesMenu" Header="{DynamicResource m_Language}" />
         </Menu>
 
         <ToolBar DockPanel.Dock="Top" Background="{x:Static SystemColors.ControlBrush}">
